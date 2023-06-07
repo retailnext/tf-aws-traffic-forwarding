@@ -1,0 +1,17 @@
+[Unit]
+After=iptables.service systemd-sysctl.service
+Requires=iptables.service systemd-sysctl.service
+
+[Service]
+Restart=always
+User=health-check-responder
+Group=health-check-responder
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+WorkingDirectory=/tmp
+ExecStart=/usr/local/bin/health-check-responder %i
+
+[Install]
+WantedBy=multi-user.target
